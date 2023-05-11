@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!--
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите long inject"
+        android:id="@+id/edt_inject_long"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите short inject"
+        android:id="@+id/edt_inject_short"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите glucose"
+        android:id="@+id/edt_glucose"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите xe"
+        android:id="@+id/edt_xe"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите time"
+        android:id="@+id/edt_time"/>
+
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить" />
+
+    -->
+
+    <RelativeLayout
+        android:id="@+id/rl_date_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:onClick="OnClickDate"
+                android:text="Понедельник"
+                android:textColor="@android:color/black"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_view_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="OnClickTime"
+                android:text="16:47"
+                android:textColor="@android:color/black"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </RelativeLayout>
+    
+    <RadioGroup
+        android:id="@+id/radio_group_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="30dp"
+        android:paddingBottom="25dp"
+        android:layout_centerHorizontal="true"
+        android:checkedButton="@id/rb_inject_long"
+        android:layout_below="@id/rl_date_time">
+
+        <RadioButton
+            android:id="@+id/rb_inject_long"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:padding="16dp"
+            android:layout_marginEnd="5dp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_button_background_selector"
+            android:drawableTop="@drawable/ic_injection_long_v2"/>
+
+        <RadioButton
+            android:id="@+id/rb_inject_short"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:padding="16dp"
+            android:layout_marginEnd="5dp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_button_background_selector"
+            android:drawableTop="@drawable/ic_injection_short_v2" />
+
+        <RadioButton
+            android:id="@+id/rb_glucose"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:padding="16dp"
+            android:layout_marginEnd="5dp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_button_background_selector"
+            android:drawableTop="@drawable/ic_blood"/>
+
+        <RadioButton
+            android:id="@+id/rb_xe"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:padding="16dp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_button_background_selector"
+            android:drawableTop="@drawable/ic_loaf_v2"/>
+
+    </RadioGroup>
+
+
+    <io.feeeei.circleseekbar.CircleSeekBar
+        android:id="@+id/seek_ed"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        app:wheel_max_process="59"
+        app:wheel_unreached_width="32dp" />
+
+    <!--     300-32-32 = 236   -->
+    <io.feeeei.circleseekbar.CircleSeekBar
+        android:id="@+id/seek_ed_half"
+        android:layout_width="236dp"
+        android:layout_height="236dp"
+        android:layout_centerInParent="true"
+        app:wheel_max_process="9"
+        app:wheel_pointer_radius="8dp"
+        app:wheel_reached_color="@color/colorAccent"
+        app:wheel_reached_width="32dp"
+        app:wheel_unreached_color="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="0.0"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="48sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="65dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/seek_ed"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:padding="5dp"
+            android:drawableTop="@drawable/baseline_close_24"
+            android:background="@drawable/radio_button_background_checked"
+            android:layout_marginEnd="15dp"/>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:padding="2dp"
+            android:drawableTop="@drawable/baseline_check_24"
+            android:background="@drawable/radio_button_background_checked"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
