@@ -1,6 +1,5 @@
 package com.example.diaapp.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,8 +12,11 @@ public interface DAO {
     @Query("SELECT * FROM recorddia")
     List<RecordDIA> getAll();
 
-    @Query("SELECT * FROM RecordDia WHERE date_time BETWEEN :start AND :end")
-    LiveData<List<RecordDIA>> getDiaForPeriod(long start, long end);
+    @Query("SELECT * FROM recorddia ORDER BY date_time DESC")
+    List<RecordDIA> getAllSortedTime();
+
+    @Query("SELECT * FROM RecordDia WHERE date_time BETWEEN :start AND :end ORDER BY date_time ASC")
+    List<RecordDIA> getDiaForPeriod(long start, long end);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(RecordDIA... dias);

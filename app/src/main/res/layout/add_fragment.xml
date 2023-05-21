@@ -5,47 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!--
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Введите long inject"
-        android:id="@+id/edt_inject_long"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Введите short inject"
-        android:id="@+id/edt_inject_short"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Введите glucose"
-        android:id="@+id/edt_glucose"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Введите xe"
-        android:id="@+id/edt_xe"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Введите time"
-        android:id="@+id/edt_time"/>
-
-
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добавить" />
-
-    -->
-
     <RelativeLayout
         android:id="@+id/rl_date_time"
         android:layout_width="match_parent"
@@ -65,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
-                android:onClick="OnClickDate"
                 android:text="Понедельник"
                 android:textColor="@android:color/black"
                 android:background="?attr/selectableItemBackground"
@@ -75,7 +33,6 @@
                 android:id="@+id/text_view_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="OnClickTime"
                 android:text="16:47"
                 android:textColor="@android:color/black"
                 android:background="?attr/selectableItemBackground"

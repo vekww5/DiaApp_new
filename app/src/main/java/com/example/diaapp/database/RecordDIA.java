@@ -55,6 +55,16 @@ public class RecordDIA {
         return glucose;
     }
 
+    public float getGlucoseMmol() {
+        float glucoseMmol = glucose / 18.0f;
+        return Math.round(glucoseMmol * 10) / 10f;
+    }
+
+    public String getGlucoseMmolString() {
+        float glucoseMmol = glucose / 18.0f;
+        return String.valueOf(Math.round(glucoseMmol * 10) / 10f);
+    }
+
     public String getGlucoseString() {
         return String.valueOf(glucose);
     }

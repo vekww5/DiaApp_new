@@ -6,17 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="7dp"
     tools:context="user_fragments.StatisticsFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Статистика"/>
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart_hello"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:padding="14dp" />
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <lecho.lib.hellocharts.view.PreviewLineChartView
+        android:id="@+id/chart_preview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </lecho.lib.hellocharts.view.PreviewLineChartView>
+
+    <Button
+        android:id="@+id/btn_send_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@color/lavender"
+        android:textColor="@color/white"
+        android:text="Получить прогноз" />
 
 </LinearLayout>

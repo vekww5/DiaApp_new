@@ -109,7 +109,7 @@ public class DiaryFragment extends Fragment {
     }
 
     private void loadUserList(View view) {
-        diaList = db.diaDao().getAll();
+        diaList = db.diaDao().getAllSortedTime();
         diaListAdapter.setUserList(diaList);
     }
 

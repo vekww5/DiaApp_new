@@ -21,6 +21,7 @@ import com.example.diaapp.database.InfoUser;
 import com.example.diaapp.database.RecordDIA;
 import com.example.diaapp.user_fragments.AddFragment;
 import com.example.diaapp.user_fragments.DiaryFragment;
+import com.example.diaapp.user_fragments.ExportFragment;
 import com.example.diaapp.user_fragments.MainFragment;
 import com.example.diaapp.user_fragments.StatisticsFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -60,8 +61,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -70,6 +69,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_statistics:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StatisticsFragment()).commit();
+                break;
+            case R.id.nav_export:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ExportFragment()).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

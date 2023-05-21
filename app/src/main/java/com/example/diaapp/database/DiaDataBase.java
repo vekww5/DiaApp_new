@@ -27,6 +27,33 @@ public abstract class DiaDataBase extends RoomDatabase {
                                     DiaDataBase.class, "DiaDataBase")
                             .allowMainThreadQueries()
                             .build();
+
+                    INSTANCE.diaDao().deleteAll();
+
+                    long time = System.currentTimeMillis();
+                    time -= 70000000;
+
+                    RecordDIA dia = new RecordDIA(0, 0, 130, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 1000000;
+
+                    dia = new RecordDIA(0, 0, 127, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 1000000;
+
+                    dia = new RecordDIA(0, 0, 125, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 2000000;
+                    dia = new RecordDIA(0, 0, 124, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 2000000;
+                    dia = new RecordDIA(0, 0, 123, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 2000000;
+
+                    dia = new RecordDIA(0, 0, 122, 0, time);
+                    INSTANCE.diaDao().insert(dia);
+                    time -= 2000000;
                 }
             }
         }

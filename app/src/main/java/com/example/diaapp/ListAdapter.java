@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public void setUserList(List<RecordDIA> diaList) {
         this.recordList = diaList;
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
 
@@ -46,7 +47,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.inject_short.setText(dia.getInjectShortString());
         holder.inject_long.setText(dia.getInjectLongString());
         holder.xe.setText(dia.getXeString());
-        holder.glucose.setText(dia.getGlucoseString());
+        holder.glucose.setText(dia.getGlucoseMmolString());
 
         // Преобразование timestamp в объект Date
         Date date = new Date(dia.getTimestamp());
