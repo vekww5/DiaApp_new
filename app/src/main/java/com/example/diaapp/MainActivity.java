@@ -6,36 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 ;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
-import com.example.diaapp.database.DiaDataBase;
-import com.example.diaapp.database.InfoUser;
-import com.example.diaapp.database.RecordDIA;
-import com.example.diaapp.user_fragments.AddFragment;
+import com.example.diaapp.user_fragments.BluetoothScanFragment;
 import com.example.diaapp.user_fragments.DiaryFragment;
 import com.example.diaapp.user_fragments.ExportFragment;
-import com.example.diaapp.user_fragments.MainFragment;
 import com.example.diaapp.user_fragments.StatisticsFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //FragmentManager fm;
-    //Fragment fragment;
-
     private DrawerLayout drawerLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +51,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_diary:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DiaryFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("a").replace(R.id.fragment_container, new DiaryFragment()).commit();
                 break;
             case R.id.nav_statistics:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StatisticsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("b").replace(R.id.fragment_container, new StatisticsFragment()).commit();
                 break;
             case R.id.nav_export:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ExportFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("c").replace(R.id.fragment_container, new ExportFragment()).commit();
+                break;
+            case R.id.nav_scan:
+                getSupportFragmentManager().beginTransaction().addToBackStack("c").replace(R.id.fragment_container, new BluetoothScanFragment()).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

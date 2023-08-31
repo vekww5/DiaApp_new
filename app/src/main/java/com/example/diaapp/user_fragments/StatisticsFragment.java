@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.diaapp.AlertPlayer;
 import com.example.diaapp.R;
 import com.example.diaapp.database.DiaDataBase;
 import com.example.diaapp.database.RecordDIA;
@@ -21,9 +24,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,6 +72,10 @@ public class StatisticsFragment extends Fragment {
     private List<Line> predictLines;
 
     private Button btnSendData;
+    private TextView tvGlucoseLastRecord, tvTimeLastRecord, tvGlucoseLevelRate;
+
+    private ImageView ivArrow;
+
 
     private boolean updatingPreviewViewport = false;
     private boolean updatingChartViewport = false;
@@ -105,9 +114,21 @@ public class StatisticsFragment extends Fragment {
         // начальная настройка графика
         setupDataChart();
 
+
+        // начальная настройка панели уровня сахара
+        setGlucosePanel(view);
+
+
+        AlertPlayer  player = new AlertPlayer();
+
         // насройка кнопки для отправки
         btnSendData = view.findViewById(R.id.btn_send_data);
         btnSendData.setOnClickListener(view1 -> {
+
+            player.startAlert(this.getContext(), 0);
+
+            /*
+
             //получение текущей даты
             currentTime = Calendar.getInstance().getTimeInMillis();
 
@@ -141,9 +162,67 @@ public class StatisticsFragment extends Fragment {
 
             });
             thread.start();
+
+
+             */
+
         });
 
         return view;
+    }
+
+    private void setGlucosePanel(View view) {
+        final DecimalFormat df = new DecimalFormat("+0.0;-0.0");
+
+    tvGlucoseLastRecord = view.findViewById(R.id.glucose_field);
+    tvTimeLastRecord = view.findViewById(R.id.time_field);
+    tvGlucoseLevelRate = view.findViewById(R.id.glucose_level_rate);
+    ivArrow = view.findViewById(R.id.arrow_image);
+
+    // сделано через _1dayData можно через доп обращение к базе данных
+
+        RecordDIA DialastRec = _1dayData.get(_1dayData.size() - 1);
+
+    tvGlucoseLastRecord.setText(DialastRec.getGlucoseMmolString());
+
+    //if (DialastRec.getGlucoseMmol() - _1dayData.get(1).getGlucoseMmol()) > 0
+
+    tvGlucoseLevelRate.setText(String.valueOf( df.format(DialastRec.getGlucoseMmol()
+            - _1dayData.get(_1dayData.size() - 2).getGlucoseMmol()) + " mmol/l"));
+
+        // Преобразование timestamp в объект Date
+        Date date = new Date(DialastRec.getTimestamp());
+
+        // Создание объекта SimpleDateFormat для формата даты и времени
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        // Получение даты и времени отдельно
+        String dateString = dateFormat.format(date);
+        String timeString = timeFormat.format(date);
+
+        tvTimeLastRecord.setText(timeString);
+
+        // изменение положения стрелки
+        setArrowSide(DialastRec.getGlucoseMmol() - _1dayData.get(_1dayData.size() - 2).getGlucoseMmol());
+    }
+
+    void setArrowSide (float number){
+
+        float n = (float) (Math.round(number * 100.0)/100.0);
+
+        // положение  и знак
+        int i = 1;
+        if (number > 0) i = -1;
+
+        // поворот стрелки
+        if (n < 0.2) {
+            ivArrow.setRotation(0);
+        } else if (n < 0.5){
+            ivArrow.setRotation(45*i);
+        }else {
+            ivArrow.setRotation(90*i);
+        }
     }
 
     // добавленое новых данных (предсказаний) в график
@@ -220,7 +299,7 @@ public class StatisticsFragment extends Fragment {
         //---------------------------// рисует Points
         lines = new ArrayList<>();
         line = new Line(values);
-        line.setColor(Color.GRAY);
+        line.setColor(Color. rgb(255, 165, 0));
         line.setHasLines(false); // скрыть/показать линии между точками
         line.setPointRadius(4);
         line.setHasPoints(true);
@@ -243,12 +322,27 @@ public class StatisticsFragment extends Fragment {
 
         lines.add(lineRed);
 
+        //--------------------------// рисует START LINE
+        List<PointValue> lineValuesRed1 = new ArrayList<>();
+        lineValuesRed1.add(new PointValue(startDate, 0));
+        lineValuesRed1.add(new PointValue(startDate, 0));
+
+        Line lineRed1  = new Line(lineValuesRed1);
+        lineRed1.setColor(Color.RED);
+        lineRed1.setHasLines(true);
+        lineRed1.setStrokeWidth(2);
+        lineRed1.setHasPoints(false);
+        lineRed1.setHasLabels(false);
+        lineRed1.setFilled(true);
+
+        lines.add(lineRed1);
+
         lines.add(minShowLine());
 
         //---------------------------// рисует Yellow LINE
         List<PointValue> lineValuesYellow = new ArrayList<>();
-        lineValuesYellow.add(new PointValue(startDate, 10));
-        lineValuesYellow.add(new PointValue(endDate, 10));
+        lineValuesYellow.add(new PointValue(startDate, 11));
+        lineValuesYellow.add(new PointValue(endDate, 11));
 
         Line LineYellow  = new Line(lineValuesYellow);
         LineYellow.setColor(Color.YELLOW);
@@ -420,8 +514,8 @@ public class StatisticsFragment extends Fragment {
         yAxis.setAutoGenerated(false);
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
 
-        for(int j = 1; j <= 20; j += 1) {
-            axisValues.add(new AxisValue(j));
+        for(int j = 1; j <= 10; j += 1) {
+            axisValues.add(new AxisValue(j*2));
         }
         yAxis.setValues(axisValues);
         yAxis.setHasLines(true);

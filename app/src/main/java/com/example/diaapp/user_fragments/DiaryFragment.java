@@ -60,38 +60,39 @@ public class DiaryFragment extends Fragment {
         return view;
     }
 
+    void getFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("d").replace(R.id.fragment_container,
+                new AddFragment()).commit();
+    }
+
     private void initFloatButtonMenuAction(View view) {
         floatingActionsMenu = view.findViewById(R.id.floatingActionsMenu);
 
         //иниц. кнопки меню fabInjectLong и задание обработчика
         fabInjectLong = view.findViewById(R.id.inject_long);
         fabInjectLong.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new AddFragment()).commit();
+            getFragment();
             floatingActionsMenu.collapse();
         });
 
         //иниц. кнопки меню fabInjectShort и задание обработчика
         fabInjectShort = view.findViewById(R.id.inject_short);
         fabInjectShort.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new AddFragment()).commit();
+            getFragment();
             floatingActionsMenu.collapse();
         });
 
         //иниц. кнопки меню fabGlucose и задание обработчика
         fabGlucose = view.findViewById(R.id.drop_blood);
         fabGlucose.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new AddFragment()).commit();
+            getFragment();
             floatingActionsMenu.collapse();
         });
 
         //иниц. кнопки меню fabXE и задание обработчика
         fabXE = view.findViewById(R.id.xe);
         fabXE.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new AddFragment()).commit();
+            getFragment();
             floatingActionsMenu.collapse();
         });
     }

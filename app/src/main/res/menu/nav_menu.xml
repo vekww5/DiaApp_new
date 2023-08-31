@@ -17,10 +17,16 @@
             android:icon="@drawable/ic_account"
             android:title="@string/menu_profile" />
         <item
+            android:id="@+id/nav_scan"
+            android:icon="@drawable/baseline_bluetooth_24"
+            android:title="@string/menu_scan"
+            />
+        <item
             android:id="@+id/nav_export"
             android:icon="@drawable/ic_baseline_archive"
             android:title="@string/menu_export"
             />
+
     </group>
 
     <item android:title="Информация">

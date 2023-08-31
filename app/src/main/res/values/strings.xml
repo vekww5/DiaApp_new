@@ -16,6 +16,7 @@
     <string name="password">Введите пароль</string>
     <string name="action_log_out">Выйти из аккаунта</string>
     <string name="menu_export">Экспорт</string>
+    <string name="menu_scan">Scan Bluetooth</string>
 
     <string-array name="list_data">
         <item>Продленный инсулин</item>
