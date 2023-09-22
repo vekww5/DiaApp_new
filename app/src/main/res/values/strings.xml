@@ -17,6 +17,13 @@
     <string name="action_log_out">Выйти из аккаунта</string>
     <string name="menu_export">Экспорт</string>
     <string name="menu_scan">Scan Bluetooth</string>
+    <string name="username">Введите никнейм</string>
+
+    <string name="name">Введите имя</string>
+    <string name="last_name">Введите фамилию</string>
+    <string name="weight">Введите вес</string>
+    <string name="height">Введите рост</string>
+
 
     <string-array name="list_data">
         <item>Продленный инсулин</item>

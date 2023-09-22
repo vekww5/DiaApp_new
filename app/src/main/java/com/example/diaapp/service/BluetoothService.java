@@ -65,11 +65,10 @@ public class BluetoothService extends Service {
 
     //Айдишники
 
-    private static final UUID GLUCOSE_SERVICE = UUID.fromString("00001808-0000-1000-8000-00805f9b34fb");
-    private static final UUID CURRENT_TIME_SERVICE = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb");
-    private static final UUID DEVICE_INFO_SERVICE = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb");
-    private static final UUID CONTOUR_SERVICE = UUID.fromString("00000000-0002-11e2-9e96-0800200c9a66");
-
+    private static final UUID GLUCOSE_SERVICE = UUID.fromString("00001808-0000-1000-8000-00805f9b34fb"); // UUID основной службы глюкозы
+    private static final UUID CURRENT_TIME_SERVICE = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb"); // UUID службы текущего времени
+    private static final UUID DEVICE_INFO_SERVICE = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb"); // UUID службы информации об устройстве
+    private static final UUID CONTOUR_SERVICE = UUID.fromString("00000000-0002-11e2-9e96-0800200c9a66"); //  UUID профиль службы глюкозы
     @Override
     public void onCreate() {
 

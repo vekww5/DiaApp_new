@@ -88,7 +88,8 @@ public class BluetoothScanFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.scan_device_fragment, container, false);
 
-        final BluetoothManager bluetooth_manager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
+        final BluetoothManager bluetooth_manager = (BluetoothManager) getActivity().
+                getSystemService(Context.BLUETOOTH_SERVICE);
 
         bluetooth_adapter = bluetooth_manager.getAdapter();
         mHandler = new Handler();
@@ -187,8 +188,10 @@ public class BluetoothScanFragment extends Fragment {
     public void onPause() {
         super.onPause();
         scanLeDevice(false);
-        mLeDeviceListAdapter.clear();
-        mLeDeviceListAdapter.notifyDataSetChanged();
+        if (mLeDeviceListAdapter != null) {
+            mLeDeviceListAdapter.clear();
+            mLeDeviceListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

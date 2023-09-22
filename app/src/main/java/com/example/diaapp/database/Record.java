@@ -2,12 +2,14 @@ package com.example.diaapp.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "RecordDia")
-public class RecordDIA {
+//@Entity(tableName = "Record")
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+public class Record {
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    public int recordId;
     @ColumnInfo(name = "inject_long")
     public float injectLong;
     @ColumnInfo(name = "inject_short")
@@ -19,12 +21,32 @@ public class RecordDIA {
     @ColumnInfo(name = "date_time")
     public long timestamp;
 
-    public RecordDIA(float injectLong, float injectShort, float glucose, float xe, long timestamp) {
+    @ColumnInfo(name = "user_id")
+    public int userId;
+    public Record(float injectLong, float injectShort, float glucose, float xe, long timestamp,
+                  int userId) {
         this.injectLong = injectLong;
         this.injectShort = injectShort;
         this.glucose = glucose;
         this.xe = xe;
         this.timestamp = timestamp;
+        this.userId = userId;
+    }
+
+    public int getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(int recordId) {
+        this.recordId = recordId;
+    }
+
+    public int getSingDataId() {
+        return userId;
+    }
+
+    public void setSingDataId(int singDataId) {
+        this.userId = singDataId;
     }
 
     public float getInjectLong() {
@@ -93,18 +115,9 @@ public class RecordDIA {
         this.timestamp = timestamp;
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     @Override
     public String toString() {
-        return "RecordDIA{" +
-                "uid=" + uid +
+        return "Record{" +
                 ", injectLong=" + injectLong +
                 ", injectShort=" + injectShort +
                 ", glucose=" + glucose +

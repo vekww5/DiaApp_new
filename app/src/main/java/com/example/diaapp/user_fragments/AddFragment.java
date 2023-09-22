@@ -1,6 +1,5 @@
 package com.example.diaapp.user_fragments;
 
-import android.app.Application;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -17,21 +15,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.example.diaapp.MainActivity;
 import com.example.diaapp.R;
 import com.example.diaapp.database.DiaDataBase;
-import com.example.diaapp.database.RecordDIA;
+import com.example.diaapp.database.Record;
 import com.example.diaapp.datapickers.DatePickerFragment;
 import com.example.diaapp.datapickers.TimePickerFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import io.feeeei.circleseekbar.CircleSeekBar;
@@ -178,11 +174,12 @@ public class AddFragment extends Fragment {
 
                 long time = cldr.getTimeInMillis();
 
-                RecordDIA recordDIA = new RecordDIA(inject_long, inject_short, glucose, xe, time);
+                Record record = new Record(inject_long, inject_short, glucose, xe, time,
+                        MainActivity.user.getId());
 
                 DiaDataBase db = DiaDataBase.getDatabase(getActivity().getApplicationContext());
 
-                db.diaDao().insert(recordDIA);
+                db.diaDao().insert(record);
                 Toast.makeText(view.getContext(), "Запись добавлена.", Toast.LENGTH_SHORT).show();
 
                 // (переходим к другому фрагменту)

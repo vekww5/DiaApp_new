@@ -1,23 +1,24 @@
 package com.example.diaapp.user_fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diaapp.ListAdapter;
+import com.example.diaapp.MainActivity;
 import com.example.diaapp.R;
 import com.example.diaapp.database.DiaDataBase;
-import com.example.diaapp.database.RecordDIA;
+import com.example.diaapp.database.Record;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,7 +31,7 @@ public class DiaryFragment extends Fragment {
     private FloatingActionsMenu floatingActionsMenu;
     private RecyclerView recyclerView;
     DiaDataBase db;
-    List<RecordDIA> diaList;
+    List<Record> diaList;
 
     // TODO список с записями пользователя: инсулин, хлебные единицы и т.д.
     @Override
@@ -110,8 +111,14 @@ public class DiaryFragment extends Fragment {
     }
 
     private void loadUserList(View view) {
-        diaList = db.diaDao().getAllSortedTime();
-        diaListAdapter.setUserList(diaList);
+        if (MainActivity.user != null) {
+            diaList = db.diaDao().getAllSortedTime(MainActivity.user.getId());
+            String str = String.valueOf(MainActivity.user.getId());
+            Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+            diaListAdapter.setUserList(diaList);
+        } else {
+
+        }
     }
 
     private void setupRecyclerView() {
@@ -134,9 +141,8 @@ public class DiaryFragment extends Fragment {
     }
 
     private void showSnackbar(int position) {
-
-        RecordDIA dia = diaListAdapter.getDiaAtPosition(position);
-        db.diaDao().deleteID(dia.getUid());
+        Record dia = diaListAdapter.getDiaAtPosition(position);
+        db.diaDao().deleteID(dia.getRecordId());
         diaListAdapter.notifyItemRemoved(position);
         diaList.remove(position);
 
@@ -154,6 +160,12 @@ public class DiaryFragment extends Fragment {
                     }
                 });
         snackbar.show();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
     }
 
 }

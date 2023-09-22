@@ -20,9 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.example.diaapp.MainActivity;
 import com.example.diaapp.R;
 import com.example.diaapp.database.DiaDataBase;
-import com.example.diaapp.database.RecordDIA;
+import com.example.diaapp.database.Record;
 import com.example.diaapp.datapickers.DatePickerFragment;
 
 import java.io.File;
@@ -163,7 +164,8 @@ public class ExportFragment  extends Fragment {
 
         // запрос на получение данных за выбранный период
         DiaDataBase db = DiaDataBase.getDatabase(getActivity().getApplicationContext());
-        List<RecordDIA> listDiaData = db.diaDao().getDiaForPeriod(startDate, endDate);
+        List<Record> listDiaData = db.diaDao().getDiaForPeriod(startDate, endDate,
+                MainActivity.user.getId());
 
         // формирование заголовка данных
         StringBuilder exportData = new StringBuilder();
@@ -179,7 +181,7 @@ public class ExportFragment  extends Fragment {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
         // заполнение данными
-        for (RecordDIA user : listDiaData) {
+        for (Record user : listDiaData) {
             exportData.append("\n").append('"'+user.injectLong+'"')
                     .append(del).append('"'+user.injectShort+'"').append(del)
                     .append('"'+user.glucose+'"').append(del).append('"'+user.xe+'"')

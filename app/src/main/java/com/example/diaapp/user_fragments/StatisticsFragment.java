@@ -14,9 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.diaapp.AlertPlayer;
+import com.example.diaapp.MainActivity;
 import com.example.diaapp.R;
 import com.example.diaapp.database.DiaDataBase;
-import com.example.diaapp.database.RecordDIA;
+import com.example.diaapp.database.Record;
 import com.example.diaapp.network.TCPConnection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,9 +50,9 @@ public class StatisticsFragment extends Fragment {
 
     //TODO: График
 
-    private List<RecordDIA> _1dayData;
-    private List<RecordDIA> _7daysData;
-    private List<RecordDIA> _30daysData;
+    private List<Record> _1dayData;
+    private List<Record> _7daysData;
+    private List<Record> _30daysData;
 
     private long currentTime;
     private long _1day;
@@ -125,9 +126,7 @@ public class StatisticsFragment extends Fragment {
         btnSendData = view.findViewById(R.id.btn_send_data);
         btnSendData.setOnClickListener(view1 -> {
 
-            player.startAlert(this.getContext(), 0);
-
-            /*
+            //player.startAlert(this.getContext(), 0);
 
             //получение текущей даты
             currentTime = Calendar.getInstance().getTimeInMillis();
@@ -136,7 +135,7 @@ public class StatisticsFragment extends Fragment {
             long start = currentTime - 18000000; // -0
 
             // запрос на получение данных за выбранный период
-            List<RecordDIA> listDia = db.diaDao().getDiaForPeriod(_1day, currentTime);
+            List<Record> listDia = db.diaDao().getDiaForPeriod(_1day, currentTime, MainActivity.user.getId());
 
             // формируем данные для отправки в json
             Gson gson = new Gson();
@@ -147,12 +146,12 @@ public class StatisticsFragment extends Fragment {
 
                 TCPConnection tcpConnection = null;
                 try {
-                    tcpConnection = new TCPConnection("192.168.1.43", 5000);
+                    tcpConnection = new TCPConnection("192.168.1.35", 5000);
                     tcpConnection.sendString(jsonArray);
                     String pred = tcpConnection.getMassege();
                     if (pred != null) {
-                        Type type = new TypeToken<List<RecordDIA>>() {}.getType();
-                        List<RecordDIA> dia = gson.fromJson(pred, type);
+                        Type type = new TypeToken<List<Record>>() {}.getType();
+                        List<Record> dia = gson.fromJson(pred, type);
                         addDataChart(dia);
                     }
                     tcpConnection.disconnect();
@@ -163,9 +162,6 @@ public class StatisticsFragment extends Fragment {
             });
             thread.start();
 
-
-             */
-
         });
 
         return view;
@@ -174,37 +170,42 @@ public class StatisticsFragment extends Fragment {
     private void setGlucosePanel(View view) {
         final DecimalFormat df = new DecimalFormat("+0.0;-0.0");
 
-    tvGlucoseLastRecord = view.findViewById(R.id.glucose_field);
-    tvTimeLastRecord = view.findViewById(R.id.time_field);
-    tvGlucoseLevelRate = view.findViewById(R.id.glucose_level_rate);
-    ivArrow = view.findViewById(R.id.arrow_image);
+        tvGlucoseLastRecord = view.findViewById(R.id.glucose_field);
+        tvTimeLastRecord = view.findViewById(R.id.time_field);
+        tvGlucoseLevelRate = view.findViewById(R.id.glucose_level_rate);
+        ivArrow = view.findViewById(R.id.arrow_image);
 
-    // сделано через _1dayData можно через доп обращение к базе данных
+        if (_1dayData.size() > 0) {
 
-        RecordDIA DialastRec = _1dayData.get(_1dayData.size() - 1);
+            int indexLastRecord = _1dayData.size() - 1;
+            Record DialastRec = _1dayData.get(indexLastRecord);
 
-    tvGlucoseLastRecord.setText(DialastRec.getGlucoseMmolString());
+            // Преобразование timestamp в объект Date
+            Date date = new Date(DialastRec.getTimestamp());
 
-    //if (DialastRec.getGlucoseMmol() - _1dayData.get(1).getGlucoseMmol()) > 0
+            // Создание объекта SimpleDateFormat для формата даты и времени
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-    tvGlucoseLevelRate.setText(String.valueOf( df.format(DialastRec.getGlucoseMmol()
-            - _1dayData.get(_1dayData.size() - 2).getGlucoseMmol()) + " mmol/l"));
+            // Получение даты и времени отдельно
+            String dateString = dateFormat.format(date);
+            String timeString = timeFormat.format(date);
 
-        // Преобразование timestamp в объект Date
-        Date date = new Date(DialastRec.getTimestamp());
+            tvTimeLastRecord.setText(timeString);
+            tvGlucoseLastRecord.setText(DialastRec.getGlucoseMmolString());
 
-        // Создание объекта SimpleDateFormat для формата даты и времени
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            if (_1dayData.size() > 1) {
 
-        // Получение даты и времени отдельно
-        String dateString = dateFormat.format(date);
-        String timeString = timeFormat.format(date);
+                tvGlucoseLevelRate.setText(String.valueOf( df.format(DialastRec.getGlucoseMmol()
+                        - _1dayData.get(indexLastRecord - 1).getGlucoseMmol()) + " mmol/l"));
 
-        tvTimeLastRecord.setText(timeString);
+                // изменение положения стрелки
+                setArrowSide(DialastRec.getGlucoseMmol() - _1dayData.get(indexLastRecord - 1).getGlucoseMmol());
+            }
 
-        // изменение положения стрелки
-        setArrowSide(DialastRec.getGlucoseMmol() - _1dayData.get(_1dayData.size() - 2).getGlucoseMmol());
+        }
+
+
     }
 
     void setArrowSide (float number){
@@ -226,13 +227,13 @@ public class StatisticsFragment extends Fragment {
     }
 
     // добавленое новых данных (предсказаний) в график
-    private void addDataChart(List<RecordDIA> listDiaData){
+    private void addDataChart(List<Record> listDiaData){
         Line line;
         List<PointValue> values = new ArrayList<PointValue>();
         predictLines = new ArrayList<>();
 
         // заполнение данными
-        for (RecordDIA dia : listDiaData) {
+        for (Record dia : listDiaData) {
             float y = dia.getGlucoseMmol();
             long x = dia.getTimestamp();
 
@@ -274,19 +275,19 @@ public class StatisticsFragment extends Fragment {
     private void setupQueryRoom(final long startDate, final long endDate){
 
         // запрос на получение данных за выбранный период
-        _1dayData = db.diaDao().getDiaForPeriod(startDate, endDate);
+        _1dayData = db.diaDao().getDiaForPeriod(startDate, endDate, MainActivity.user.getId());
 
         // заполнение графика данными
         setupChartHello(_1dayData, startDate, endDate);
     }
 
     //метод для заполнение и настройка графика
-    private void setupChartHello(List<RecordDIA> listDiaData, long startDate, long endDate){
+    private void setupChartHello(List<Record> listDiaData, long startDate, long endDate){
         Line line;
         List<PointValue> values = new ArrayList<PointValue>();
 
         // заполнение данными
-        for (RecordDIA dia : listDiaData) {
+        for (Record dia : listDiaData) {
             float y = dia.getGlucoseMmol();
             long x = dia.getTimestamp();
 

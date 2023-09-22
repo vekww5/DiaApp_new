@@ -9,25 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.diaapp.database.RecordDIA;
+import com.example.diaapp.database.Record;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private Context context;
-    private List<RecordDIA> recordList;
+    private List<Record> recordList;
     public ListAdapter(Context context) {
         this.context = context;
     }
 
-    public void setUserList(List<RecordDIA> diaList) {
+    public void setUserList(List<Record> diaList) {
         this.recordList = diaList;
         //notifyDataSetChanged();
     }
@@ -42,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        RecordDIA dia = this.recordList.get(position);
+        Record dia = this.recordList.get(position);
 
         holder.inject_short.setText(dia.getInjectShortString());
         holder.inject_long.setText(dia.getInjectLongString());
@@ -70,7 +65,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return this.recordList.size();
     }
 
-    public RecordDIA getDiaAtPosition (int position) {
+    public Record getDiaAtPosition (int position) {
         return recordList.get(position);
     }
 
