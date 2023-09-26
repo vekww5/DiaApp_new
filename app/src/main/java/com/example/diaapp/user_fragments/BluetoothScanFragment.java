@@ -332,48 +332,7 @@ public class BluetoothScanFragment extends Fragment {
             //bluetooth_adapter.stopLeScan(mLeScanCallback);
             is_scanning = false;
         }
-        //startActivity(intent);
 
-
-
-
-
-
-
-
-
-
-        //Toast.makeText(this, "connecting to device", Toast.LENGTH_LONG).show();
-        //GATT BLE
-        //BluetoothGatt mBluetoothGatt = device.connectGatt(getApplicationContext(), true, service.);
-        //Log.i(TAG, "Trying to create a new connection.");
-
-
-
-
-        //final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //prefs.edit().putString("last_connected_device_address", device.getAddress()).apply();
-
-        // automatically set or unset the option for "Transmiter" device
-        /*
-        boolean using_transmiter = false;
-        try {
-            if (device.getName().toLowerCase().contains("limitter")
-                    && (adverts.containsKey(device.getAddress())
-                    && ((new String(adverts.get(device.getAddress()), "UTF-8").contains("eLeR"))
-                    || (new String(adverts.get(device.getAddress()), "UTF-8").contains("data"))))||
-                    device.getName().toLowerCase().contains("limitterd")) {
-                String msg = "Auto-detected transmiter_pl device!";
-                Log.e(TAG, msg);
-                //JoH.static_toast_long(msg);
-                using_transmiter = true;
-            }
-            //prefs.edit().putBoolean("use_transmiter_pl_bluetooth", using_transmiter).apply();
-
-
-        } catch (UnsupportedEncodingException | NullPointerException e) {
-            Log.d(TAG, "Got exception in listitemclick: " + Arrays.toString(e.getStackTrace()));
-        }*/
     }
 
 

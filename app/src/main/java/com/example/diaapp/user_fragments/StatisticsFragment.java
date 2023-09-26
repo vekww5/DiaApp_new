@@ -132,10 +132,12 @@ public class StatisticsFragment extends Fragment {
             currentTime = Calendar.getInstance().getTimeInMillis();
 
             // Получить время 30 минут назад в миллисекундах
-            long start = currentTime - 18000000; // -0
+            //long start = currentTime - 18000000; // -0
+
 
             // запрос на получение данных за выбранный период
-            List<Record> listDia = db.diaDao().getDiaForPeriod(_1day, currentTime, MainActivity.user.getId());
+            //List<Record> listDia = db.diaDao().getDiaForPeriod(_1day, currentTime, MainActivity.user.getId());
+            List<Record> listDia = db.diaDao().getDiaForPeriod(_7days, currentTime, MainActivity.user.getId());
 
             // формируем данные для отправки в json
             Gson gson = new Gson();

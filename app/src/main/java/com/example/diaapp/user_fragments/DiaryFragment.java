@@ -33,7 +33,7 @@ public class DiaryFragment extends Fragment {
     DiaDataBase db;
     List<Record> diaList;
 
-    // TODO список с записями пользователя: инсулин, хлебные единицы и т.д.
+    // Cписок с записями пользователя: инсулин, хлебные единицы и т.д.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -98,6 +98,7 @@ public class DiaryFragment extends Fragment {
         });
     }
 
+    //инициализация списка
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -110,17 +111,17 @@ public class DiaryFragment extends Fragment {
         recyclerView.setAdapter(diaListAdapter);
     }
 
+    //загрузка записей пользователя
     private void loadUserList(View view) {
         if (MainActivity.user != null) {
             diaList = db.diaDao().getAllSortedTime(MainActivity.user.getId());
             String str = String.valueOf(MainActivity.user.getId());
             Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
             diaListAdapter.setUserList(diaList);
-        } else {
-
         }
     }
 
+    // настройка списка recyclerView
     private void setupRecyclerView() {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
@@ -140,6 +141,7 @@ public class DiaryFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    // создание и настройка Snackbar
     private void showSnackbar(int position) {
         Record dia = diaListAdapter.getDiaAtPosition(position);
         db.diaDao().deleteID(dia.getRecordId());

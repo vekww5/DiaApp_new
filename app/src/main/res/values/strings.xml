@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_diary">Дневник</string>
-    <string name="menu_statistics">Статистика</string>
+    <string name="menu_statistics">Мониторинг</string>
     <string name="menu_profile">Профиль</string>
     <string name="email">Введите ваш email</string>
     <string name="password_again">Пароль еще раз</string>
@@ -23,6 +23,7 @@
     <string name="last_name">Введите фамилию</string>
     <string name="weight">Введите вес</string>
     <string name="height">Введите рост</string>
+    <string name="menu_history">Статистика</string>
 
 
     <string-array name="list_data">

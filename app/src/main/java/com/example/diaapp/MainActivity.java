@@ -20,6 +20,7 @@ import com.example.diaapp.database.UserDAO;
 import com.example.diaapp.user_fragments.BluetoothScanFragment;
 import com.example.diaapp.user_fragments.DiaryFragment;
 import com.example.diaapp.user_fragments.ExportFragment;
+import com.example.diaapp.user_fragments.HistoryFragment;
 import com.example.diaapp.user_fragments.LoginFragment;
 import com.example.diaapp.user_fragments.ProfileFragment;
 import com.example.diaapp.user_fragments.StatisticsFragment;
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity
                 editor2.clear();
                 editor2.apply();
 
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new LoginFragment()).commit();
 
@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_scan:
                 getSupportFragmentManager().beginTransaction().addToBackStack("b").replace(R.id.fragment_container, new BluetoothScanFragment()).commit();
+                break;
+            case R.id.nav_history:
+                getSupportFragmentManager().beginTransaction().addToBackStack("b").replace(R.id.fragment_container, new HistoryFragment()).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

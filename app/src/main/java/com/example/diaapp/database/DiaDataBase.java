@@ -82,40 +82,117 @@ public abstract class DiaDataBase extends RoomDatabase {
 
                         INSTANCE.diaDao().deleteAllByUderID(uid);
 
-                        Record dia = new Record(0, 0, 140, 0,
+
+
+                        Record dia = new Record(0, 0, 120, 0,
                                 time, uid);
-
                         INSTANCE.diaDao().insert(dia);
                         time -= 1000000;
-
-                        dia = new Record(0, 0, 145, 0, time, uid);
-
-                        INSTANCE.diaDao().insert(dia);
-                        time -= 1000000;
-
-                        dia = new Record(0, 0, 147, 0, time, uid);
-
-                        INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
-                        dia = new Record(0, 0, 140, 0, time, uid);
-
-                        INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
-                        dia = new Record(0, 0, 130, 0, time, uid);
-                        INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
-
-                        dia = new Record(0, 0, 120, 0, time, uid);
-                        INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
 
                         dia = new Record(0, 0, 115, 0, time, uid);
                         INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
+                        time -= 1000000;
 
                         dia = new Record(0, 0, 110, 0, time, uid);
                         INSTANCE.diaDao().insert(dia);
-                        time -= 2000000;
+                        time -= 1000000;
+
+
+                        dia = new Record(0, 0, 100, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 99, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 90, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 79, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 70, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 69, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 65, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 60, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 70, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 80, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 100, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 125, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 135, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 140, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 142, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 140, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 137, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 130, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 124, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 120, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 117, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 115, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 111, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
+
+                        dia = new Record(0, 0, 110, 0, time, uid);
+                        INSTANCE.diaDao().insert(dia);
+                        time -= 1000000;
                     }
                 }
             }

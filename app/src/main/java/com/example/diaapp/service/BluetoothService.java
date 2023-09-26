@@ -69,14 +69,6 @@ public class BluetoothService extends Service {
     private static final UUID CURRENT_TIME_SERVICE = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb"); // UUID службы текущего времени
     private static final UUID DEVICE_INFO_SERVICE = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb"); // UUID службы информации об устройстве
     private static final UUID CONTOUR_SERVICE = UUID.fromString("00000000-0002-11e2-9e96-0800200c9a66"); //  UUID профиль службы глюкозы
-    @Override
-    public void onCreate() {
-
-        //foregroundServiceStarter = new ForegroundServiceStarter(getApplicationContext(), this);
-        //foregroundServiceStarter.start();
-
-        System.out.println("Мой сервис");
-    }
 
     // реализ методов, которые будут вызываться при соединении, отключении, отправке и получении данных через BLE.
     private final BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
@@ -122,65 +114,22 @@ public class BluetoothService extends Service {
 
                 Log.d(TAG, "onServicesDiscovered received: " + status);
 
-                for (BluetoothGattService service : gatt.getServices()) {
-                    for (BluetoothGattCharacteristic cha : service.getCharacteristics()) {
-                        UUID c = cha.getUuid();
-                        if (c != null) {
-                            Log.d(TAG, "рус Found: " + c);
 
 
-//                             BluetoothGattDescriptor descriptor = cha.getDescriptor(c);
-//                             Log.i(TAG,"BluetoothGattDescriptor is::" + descriptor.getUuid());
-//                             descriptor.setValue(BluetoothGattDescriptor.ENABLE_INDICATION_VALUE);
-//                             gatt.writeDescriptor(descriptor);
-//                             gatt.setCharacteristicNotification(cha, true);
-//                             cha = service.getCharacteristic(UUID.fromString(cha.getValue().toString()));
-
-                            //final BluetoothGattDescriptor bdescriptor = gattCharacteristic.getDescriptor(UUID.fromString(HM10Attributes.CLIENT_CHARACTERISTIC_CONFIG));
-
-
-
-                            //final BluetoothGattDescriptor bdescriptor = cha.getDescriptor(c);
-                            //Log.i(TAG, "Bluetooth Notification Descriptor found: " + bdescriptor.getUuid());
-
-                            //if (bdescriptor != null) {
-
-
-                            //bdescriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                            //mBluetoothGatt.writeDescriptor(bdescriptor);
-
-                            //   cha = service.getCharacteristic(UUID.fromString("00002a01-0000-1000-8000-00805f9b34fb"));
-                            //cha = service.getCharacteristic(UUID.fromString("8ec90003-f315-4f60-9fb8-838830daea50"));
-
-                            //  gatt.setCharacteristicNotification(cha, true);
-                            //   gatt.readCharacteristic(cha);
-                            // if (cha != null) {
-                            //byte[] bytes = cha.getValue();
-                            //System.out.println(bytes.toString());
-                            //Log.d(TAG, " рус Enable notification: " + Arrays.toString(bytes));
-                            //   }
-                            //
-
-                            //}
-                        }
-                    }
-                }
-
-                /*
-                BluetoothGattService gattService = gatt.getService(SampleGattAttributes.NRF_UART_TX);
+                BluetoothGattService gattService = gatt.getService(GLUCOSE_SERVICE);
                 if (gattService != null) {
                      gattService.getCharacteristics();
                 }
 
-                gattService = gatt.getService(SampleGattAttributes.TRANSMITER_PL_RX_TX);
+                gattService = gatt.getService(CURRENT_TIME_SERVICE);
                 if (gattService != null) {
                     gattService.getCharacteristics();
                 }
 
-                gattService = gatt.getService(SampleGattAttributes.NRF_UART_SERVICE);
+                gattService = gatt.getService(DEVICE_INFO_SERVICE);
                 if (gattService != null) {
                     gattService.getCharacteristics();
-                }*/
+                }
 
 
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);

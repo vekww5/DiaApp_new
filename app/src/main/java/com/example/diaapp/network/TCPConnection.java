@@ -34,8 +34,8 @@ public class TCPConnection  {
 
     public void sendString(String str) {
         try {
-            //writer.write(str + "\r\n");
-            writer.write(str);
+            writer.write(str + "\n");
+            //writer.write(str);
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
